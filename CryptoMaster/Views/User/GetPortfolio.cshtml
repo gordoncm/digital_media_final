@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PortfolioModel>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterInput = document.getElementById("filterInput");
+
+        if (filterInput) {
+            filterInput.addEventListener("keyup", function () {
+                const filter = this.value.toLowerCase();
+                const rows = document.querySelectorAll("table tbody tr");
+
+                rows.forEach(row => {
+                    const cells = Array.from(row.getElementsByTagName("td"));
+                    const matches = cells.some(cell =>
+                        cell.textContent.toLowerCase().includes(filter)
+                    );
+                    row.style.display = matches ? "" : "none";
+                });
+            });
+        }
+    });
+
+</script>
+
+<input type="text"
+       id="filterInput"
+       class="form-control"
+       placeholder="Search portfolio..." />
+
+<form asp-action="SavePortfolio" method="post">
+    <label><b>Refresh Portfolio</b></label>
+    <input type="text" name="Name" class="form-control" id="Name" placeholder="UserName to lookup"/>
+    <input type="submit" class="btn btn-primary"/>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Balance</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coin in Model)
+        {
+            <tr>
+                <td>@coin.TokenName</td>
+                <td>@coin.Balance</td> 
+            </tr>
+        }
+    </tbody>
+</table>

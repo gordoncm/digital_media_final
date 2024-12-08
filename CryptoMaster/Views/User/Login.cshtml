@@ -1,0 +1,17 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Login to CryptoMaster</h1>
+
+<form asp-action="LoginUser" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" id="Name" name="Name" placeholder="UserName" /> 
+        <input type="password" class="form-control" id="Password" name="Password" placeholder="Password"/>
+    </div>
+
+    <input type="submit" class="btn btn-primary" />
+</form>
+<div style="height:20px"></div>
+<a href="Register" class="btn btn-primary">Register</a>

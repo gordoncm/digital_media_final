@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CryptoModel>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterInput = document.getElementById("filterInput");
+
+        if (filterInput) {
+            filterInput.addEventListener("keyup", function () {
+                const filter = this.value.toLowerCase();
+                const rows = document.querySelectorAll("table tbody tr");
+
+                rows.forEach(row => {
+                    const cells = Array.from(row.getElementsByTagName("td"));
+                    const matches = cells.some(cell =>
+                        cell.textContent.toLowerCase().includes(filter)
+                    );
+                    row.style.display = matches ? "" : "none";
+                });
+            });
+        }
+    });
+
+</script>
+
+<h1>Top 100 Coins</h1>
+<input type="text"
+       id="filterInput"
+       class="form-control"
+       placeholder="Search crypto..." />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ticker</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coin in Model)
+        {
+            <tr> 
+                <td>@coin.Ticker</td>
+                <td>@coin.Name</td>
+                <td>@coin.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
